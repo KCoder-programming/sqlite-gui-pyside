@@ -40,6 +40,9 @@ python pysqlite.py
 
 (Already listed in [requirements.txt](https://github.com/KCoder-programming/sqlite-gui-pyside/blob/main/requirements.txt))
 
+## Screenshot:
+<img width="664" height="443" alt="image" src="https://github.com/user-attachments/assets/960adf2a-5d96-4ff2-b63f-3ab6788c61af" />
+
 ---
 
 ## License
