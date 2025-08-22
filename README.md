@@ -62,4 +62,4 @@ You do not have to comply with the license for elements of the material in the p
 
 No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
 
-See [LICENSE](https://github.com/KCoder-programming/sqlite-gui-pyside/blob/main/LICENSE.txt) for details.
+See [LICENSE](https://github.com/KCoder-programming/sqlite-gui-pyside/blob/main/LICENSE) for details.
