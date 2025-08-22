@@ -37,6 +37,7 @@ python app.py
 - Python 3.8+
 - PySide6
 - Tabulate
+
 (Already listed in [requirements.txt](https://github.com/KCoder-programming/sqlite-gui-pyside/blob/main/requirements.txt))
 
 ---
