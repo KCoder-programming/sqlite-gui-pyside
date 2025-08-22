@@ -39,6 +39,8 @@ python app.py
 - Tabulate
 (Already listed in [requirements.txt](https://github.com/KCoder-programming/sqlite-gui-pyside/blob/main/requirements.txt))
 
+---
+
 ## License
 Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
 
@@ -57,9 +59,7 @@ Under the following terms:
 No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
 Notices:
-
-You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation .
-
-No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
+- You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation .
+- No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
 
 See [LICENSE](https://github.com/KCoder-programming/sqlite-gui-pyside/blob/main/LICENSE) for details.
