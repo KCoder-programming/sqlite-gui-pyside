@@ -5,6 +5,11 @@ It provides a modern interface which allows you to create, open and manage SQLit
 
 ---
 
+## Releases
+https://github.com/KCoder-programming/sqlite-gui-pyside/releases
+
+---
+
 ## Features
 - Create and open SQLite databases
 - Run multiple SQL queries directly from the editor
