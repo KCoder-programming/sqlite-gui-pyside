@@ -30,7 +30,7 @@ It provides a modern interface which allows you to create, open and manage SQLit
 ## Usage
 Run the app with:
 ```bash
-python app.py
+python pysqlite.py
 ```
 
 ## Requirements
