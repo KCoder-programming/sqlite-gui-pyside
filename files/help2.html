@@ -1,0 +1,368 @@
+<!-- help2.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How to Use the SQLite App</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; background: #ffffff; }
+    h1, h2 { color: #333; }
+    code { background: #dddddd; padding: 2px 5px; border-radius: 4px;}
+    h6 { background: #dddddd; padding: 10px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; white-space: pre;overflow-x: auto; font-size: medium; text-align: center;}
+    section { margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <h1>How to Use the SQLite App</h1>
+
+  <section>
+    <h2>Introduction</h2>
+    <p>This application is a lightweight, user-friendly tool for executing SQLite database operations. You can create/open databases, run SQL commands, view outputs in tabular format, save notebooks, and customize your interface with themes and output styles.</p>
+  </section>
+
+  <section>
+    <h2>Main Features</h2>
+    <ul>
+      <li>Create new or open existing SQLite databases (.db, .sqlite, .db3, .sqlite3).</li>
+      <li>Write and execute SQL queries directly in the command editor.</li>
+      <li>View formatted output using different table styles.</li>
+      <li>Use an integrated Notepad to save and run SQL notebooks (.nbdb files).</li>
+      <li>Switch between beautiful themes and change the table display format.</li>
+      <li>Auto-clear input after running SQL commands (optional).</li>
+      <li>Shortcut keys for faster operations.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Using the Application</h2>
+
+    <h3>1. Open or Create a Database</h3>
+    <p>Use the <b>File</b> menu:</p>
+    <ul>
+      <li><b>Open Database</b> &ndash; Choose an existing database file to work with.</li>
+      <li><b>New Database</b> &ndash; Create a new empty SQLite database.</li>
+    </ul>
+
+    <h3>2. Write SQL Commands</h3>
+    <p>Type your SQL queries inside the Command Editor (upper text box).</p>
+
+    <h3>3. Run Commands</h3>
+    <p>Click the <b>Run</b> button or press <b>F5</b> to execute commands. The output appears below.</p>
+
+    <h3>4. View Outputs</h3>
+    <p>Results are displayed in a readable table format using the selected tabulate style. If no data is returned, a success message is shown.</p>
+
+    <h3>5. Clear Output or Input</h3>
+    <p>Use <b>Edit &gt; Clear Output</b> to clear the output area. Enable <b>Clear Input</b> to automatically wipe the command editor after running a command.</p>
+
+    <h3>6. Save and Open SQL Notebooks</h3>
+    <p>Use <b>New File</b> or <b>Open File</b> from the <b>File</b> menu to manage <code>.nbdb</code> notebook files. These are SQL script files that can be saved and reopened later.</p>
+
+    <h3>7. Theme and Table Style</h3>
+    <p>Go to the <b>Style</b> menu:</p>
+    <ul>
+      <li><b>Themes</b> &ndash; Switch between multiple UI themes (Dark, Light, Colorful, etc.).</li>
+      <li><b>Format</b> &ndash; Choose how your SQL output table looks (grid, fancy grid, github, psql, etc.).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Menus and Options</h2>
+    <ul>
+      <li><b>File Menu</b>: Database and file operations.</li>
+      <li><b>Edit Menu</b>: Clear outputs, auto-clear input, adjust font size.</li>
+      <li><b>Style Menu</b>: Switch themes and output formats.</li>
+      <li><b>Help Menu</b>: Open Help and SQLite Tutorial pages.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Shortcut Keys</h2>
+    <ul>
+      <li><b>Ctrl + N</b> &ndash; New database</li>
+      <li><b>Ctrl + O</b> &ndash; Open database</li>
+      <li><b>Ctrl + S</b> &ndash; Save notebook in Notepad</li>
+      <li><b>F5</b> &ndash; Run SQL command</li>
+      <li><b>F5</b> &ndash; Run SQL script inside Notepad editor</li>
+      <li><b>Ctrl + Mousewheel</b> &ndash; Zoom in/out editor and output text</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Special Features</h2>
+    <ul>
+      <li><b>Run multiple commands</b> separated by <code>;</code> (semicolon).</li>
+      <li><b>Error Handling</b> &ndash; Errors are shown clearly in the output.</li>
+      <li><b>Tabulate Output</b> &ndash; Output is neatly presented in different customizable styles.</li>
+      <li><b>Integrated Notepad</b> &ndash; Create, save, and execute long SQL scripts conveniently.</li>
+      <li><b>Zoom Text</b> &ndash; Quickly adjust text size using shortcuts.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Table Styles Preview</h2>
+    <p>Here is an example of different table output styles available in the app:</p>
+    <ul>
+      <li>
+        <h4>double_grid</h4>
+        <h6>╔════╦═══════╦════════╦═════════╦═══════════╦══════════════╦══════╗
+║    ║   cid ║ name   ║ type    ║   notnull ║ dflt_value   ║   pk ║
+╠════╬═══════╬════════╬═════════╬═══════════╬══════════════╬══════╣
+║  0 ║     0 ║ id     ║ INTEGER ║         0 ║              ║    1 ║
+╠════╬═══════╬════════╬═════════╬═══════════╬══════════════╬══════╣
+║  1 ║     1 ║ name   ║ TEXT    ║         1 ║              ║    0 ║
+╠════╬═══════╬════════╬═════════╬═══════════╬══════════════╬══════╣
+║  2 ║     2 ║ age    ║ INTEGER ║         0 ║              ║    0 ║
+╠════╬═══════╬════════╬═════════╬═══════════╬══════════════╬══════╣
+║  3 ║     3 ║ email  ║ TEXT    ║         0 ║              ║    0 ║
+╚════╩═══════╩════════╩═════════╩═══════════╩══════════════╩══════╝</h6>
+      </li>
+      <li>
+        <h4>double_outline</h4>
+        <h6>╔════╦═══════╦════════╦═════════╦═══════════╦══════════════╦══════╗
+║    ║   cid ║ name   ║ type    ║   notnull ║ dflt_value   ║   pk ║
+╠════╬═══════╬════════╬═════════╬═══════════╬══════════════╬══════╣
+║  0 ║     0 ║ id     ║ INTEGER ║         0 ║              ║    1 ║
+║  1 ║     1 ║ name   ║ TEXT    ║         1 ║              ║    0 ║
+║  2 ║     2 ║ age    ║ INTEGER ║         0 ║              ║    0 ║
+║  3 ║     3 ║ email  ║ TEXT    ║         0 ║              ║    0 ║
+╚════╩═══════╩════════╩═════════╩═══════════╩══════════════╩══════╝</h6>
+      </li>
+      <li>
+        <h4>fancy_grid</h4>
+        <h6>╒════╤═══════╤════════╤═════════╤═══════════╤══════════════╤══════╕
+│    │   cid │ name   │ type    │   notnull │ dflt_value   │   pk │
+╞════╪═══════╪════════╪═════════╪═══════════╪══════════════╪══════╡
+│  0 │     0 │ id     │ INTEGER │         0 │              │    1 │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  1 │     1 │ name   │ TEXT    │         1 │              │    0 │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  2 │     2 │ age    │ INTEGER │         0 │              │    0 │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  3 │     3 │ email  │ TEXT    │         0 │              │    0 │
+╘════╧═══════╧════════╧═════════╧═══════════╧══════════════╧══════╛</h6>
+      </li>
+      <li>
+        <h4>fancy_outline</h4>
+        <h6>╒════╤═══════╤════════╤═════════╤═══════════╤══════════════╤══════╕
+│    │   cid │ name   │ type    │   notnull │ dflt_value   │   pk │
+╞════╪═══════╪════════╪═════════╪═══════════╪══════════════╪══════╡
+│  0 │     0 │ id     │ INTEGER │         0 │              │    1 │
+│  1 │     1 │ name   │ TEXT    │         1 │              │    0 │
+│  2 │     2 │ age    │ INTEGER │         0 │              │    0 │
+│  3 │     3 │ email  │ TEXT    │         0 │              │    0 │
+╘════╧═══════╧════════╧═════════╧═══════════╧══════════════╧══════╛</h6>
+      </li>
+      <li>
+        <h4>github</h4>
+        <h6>|    |   cid | name   | type    |   notnull | dflt_value   |   pk |
+|----|-------|--------|---------|-----------|--------------|------|
+|  0 |     0 | id     | INTEGER |         0 |              |    1 |
+|  1 |     1 | name   | TEXT    |         1 |              |    0 |
+|  2 |     2 | age    | INTEGER |         0 |              |    0 |
+|  3 |     3 | email  | TEXT    |         0 |              |    0 |</h6>
+      </li>
+      <li>
+        <h4>html</h4>
+        <h6 style="text-align: left;">&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt; cid &lt;/th&gt;&lt;th&gt; name &lt;/th&gt;&lt;th&gt; type &lt;/th&gt;&lt;th&gt; notnull &lt;/th&gt;&lt;th&gt; dflt_value &lt;/th&gt;&lt;th&gt; pk &lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;td&gt; id &lt;/td&gt;&lt;td&gt; INTEGER &lt;/td&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;td&gt;  &lt;/td&gt;&lt;td&gt; 1 &lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt; 1 &lt;/td&gt;&lt;td&gt; 1 &lt;/td&gt;&lt;td&gt; name &lt;/td&gt;&lt;td&gt; TEXT &lt;/td&gt;&lt;td&gt; 1 &lt;/td&gt;&lt;td&gt;  &lt;/td&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt; 2 &lt;/td&gt;&lt;td&gt; 2 &lt;/td&gt;&lt;td&gt; age &lt;/td&gt;&lt;td&gt; INTEGER &lt;/td&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;td&gt;  &lt;/td&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt; 3 &lt;/td&gt;&lt;td&gt; 3 &lt;/td&gt;&lt;td&gt; email &lt;/td&gt;&lt;td&gt; TEXT &lt;/td&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;td&gt;  &lt;/td&gt;&lt;td&gt; 0 &lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</h6>          
+      </li>
+      <li>
+        <h4>latex</h4>
+        <h6 style="text-align: left;">\begin{tabular}{rrllrlr}
+\hline
+    &   cid & name   & type    &   notnull & dflt\_value   &   pk \\
+\hline
+  0 &     0 & id     & INTEGER &         0 &              &    1 \\
+  1 &     1 & name   & TEXT    &         1 &              &    0 \\
+  2 &     2 & age    & INTEGER &         0 &              &    0 \\
+  3 &     3 & email  & TEXT    &         0 &              &    0 \\
+\hline
+\end{tabular}</h6>
+      </li>
+      <li>
+        <h4>mediawiki</h4>
+        <h6 style="text-align: left;">{| class="wikitable" style="text-align: left;"
+|+ &lt;!-- caption --&gt;
+|-
+! align="right"|    !! align="right"|   cid !! name   !! type    !! align="right"|   notnull !! dflt_value   !! align="right"|   pk
+|-
+| align="right"|  0 || align="right"|     0 || id     || INTEGER || align="right"|         0 ||              || align="right"|    1
+|-
+| align="right"|  1 || align="right"|     1 || name   || TEXT    || align="right"|         1 ||              || align="right"|    0
+|-
+| align="right"|  2 || align="right"|     2 || age    || INTEGER || align="right"|         0 ||              || align="right"|    0
+|-
+| align="right"|  3 || align="right"|     3 || email  || TEXT    || align="right"|         0 ||              || align="right"|    0
+|}</h6>
+      </li>
+      <li>
+        <h4>moinmoin</h4>
+        <h6 style="text-align: left;">||&lt;style="text-align: right;"&gt; '''    ''' ||&lt;style="text-align: right;"&gt; '''   cid ''' || ''' name   ''' || ''' type    ''' ||&lt;style="text-align: right;"&gt; '''   notnull ''' || ''' dflt_value   ''' ||&lt;style="text-align: right;"&gt; '''   pk ''' ||
+||&lt;style="text-align: right;"&gt;   0  ||&lt;style="text-align: right;"&gt;      0  ||  id      ||  INTEGER  ||&lt;style="text-align: right;"&gt;          0  ||                ||&lt;style="text-align: right;"&gt;     1  ||
+||&lt;style="text-align: right;"&gt;   1  ||&lt;style="text-align: right;"&gt;      1  ||  name    ||  TEXT     ||&lt;style="text-align: right;"&gt;          1  ||                ||&lt;style="text-align: right;"&gt;     0  ||
+||&lt;style="text-align: right;"&gt;   2  ||&lt;style="text-align: right;"&gt;      2  ||  age     ||  INTEGER  ||&lt;style="text-align: right;"&gt;          0  ||                ||&lt;style="text-align: right;"&gt;     0  ||
+||&lt;style="text-align: right;"&gt;   3  ||&lt;style="text-align: right;"&gt;      3  ||  email   ||  TEXT     ||&lt;style="text-align: right;"&gt;          0  ||                ||&lt;style="text-align: right;"&gt;     0  ||</h6>;
+      </li>
+      <li>
+        <h4>orgtbl</h4>
+        <h6>|    |   cid | name   | type    |   notnull | dflt_value   |   pk |
+|----+-------+--------+---------+-----------+--------------+------|
+|  0 |     0 | id     | INTEGER |         0 |              |    1 |
+|  1 |     1 | name   | TEXT    |         1 |              |    0 |
+|  2 |     2 | age    | INTEGER |         0 |              |    0 |
+|  3 |     3 | email  | TEXT    |         0 |              |    0 |</h6>
+      </li>
+      <li>
+        <h4>grid</h4>
+        <h6>+----+-------+--------+---------+-----------+--------------+------+
+|    |   cid | name   | type    |   notnull | dflt_value   |   pk |
++====+=======+========+=========+===========+==============+======+
+|  0 |     0 | id     | INTEGER |         0 |              |    1 |
++----+-------+--------+---------+-----------+--------------+------+
+|  1 |     1 | name   | TEXT    |         1 |              |    0 |
++----+-------+--------+---------+-----------+--------------+------+
+|  2 |     2 | age    | INTEGER |         0 |              |    0 |
++----+-------+--------+---------+-----------+--------------+------+
+|  3 |     3 | email  | TEXT    |         0 |              |    0 |
++----+-------+--------+---------+-----------+--------------+------+</h6>
+      </li>
+      <li>
+        <h4>outline</h4>
+        <h6>+----+-------+--------+---------+-----------+--------------+------+
+|    |   cid | name   | type    |   notnull | dflt_value   |   pk |
++====+=======+========+=========+===========+==============+======+
+|  0 |     0 | id     | INTEGER |         0 |              |    1 |
+|  1 |     1 | name   | TEXT    |         1 |              |    0 |
+|  2 |     2 | age    | INTEGER |         0 |              |    0 |
+|  3 |     3 | email  | TEXT    |         0 |              |    0 |
++----+-------+--------+---------+-----------+--------------+------+</h6>
+      </li>
+      <li>
+        <h4>pipe</h4>
+        <h6>|    |   cid | name   | type    |   notnull | dflt_value   |   pk |
+|---:|------:|:-------|:--------|----------:|:-------------|-----:|
+|  0 |     0 | id     | INTEGER |         0 |              |    1 |
+|  1 |     1 | name   | TEXT    |         1 |              |    0 |
+|  2 |     2 | age    | INTEGER |         0 |              |    0 |
+|  3 |     3 | email  | TEXT    |         0 |              |    0 |</h6>
+      </li>
+      <li>
+        <h4>plane</h4>
+        <h6>      cid  name    type       notnull  dflt_value      pk
+ 0      0  id      INTEGER          0                   1
+ 1      1  name    TEXT             1                   0
+ 2      2  age     INTEGER          0                   0
+ 3      3  email   TEXT             0                   0</h6>
+      </li>
+      <li>
+        <h4>presto</h4>
+        <h6>    |   cid | name   | type    |   notnull | dflt_value   |   pk
+----+-------+--------+---------+-----------+--------------+------
+  0 |     0 | id     | INTEGER |         0 |              |    1
+  1 |     1 | name   | TEXT    |         1 |              |    0
+  2 |     2 | age    | INTEGER |         0 |              |    0
+  3 |     3 | email  | TEXT    |         0 |              |    0</h6>
+      </li>
+      <li>
+        <h4>pretty</h4>
+        <h6>+---+-----+-------+---------+---------+------------+----+
+|   | cid | name  |  type   | notnull | dflt_value | pk |
++---+-----+-------+---------+---------+------------+----+
+| 0 |  0  |  id   | INTEGER |    0    |            | 1  |
+| 1 |  1  | name  |  TEXT   |    1    |            | 0  |
+| 2 |  2  |  age  | INTEGER |    0    |            | 0  |
+| 3 |  3  | email |  TEXT   |    0    |            | 0  |
++---+-----+-------+---------+---------+------------+----+</h6>
+      </li>
+      <li>
+        <h4>psql</h4>
+        <h6>+----+-------+--------+---------+-----------+--------------+------+
+|    |   cid | name   | type    |   notnull | dflt_value   |   pk |
+|----+-------+--------+---------+-----------+--------------+------|
+|  0 |     0 | id     | INTEGER |         0 |              |    1 |
+|  1 |     1 | name   | TEXT    |         1 |              |    0 |
+|  2 |     2 | age    | INTEGER |         0 |              |    0 |
+|  3 |     3 | email  | TEXT    |         0 |              |    0 |
++----+-------+--------+---------+-----------+--------------+------+</h6>
+      </li>
+      <li>
+        <h4>rst</h4>
+        <h6>====  =====  ======  =======  =========  ============  ====
+  ..    cid  name    type       notnull  dflt_value      pk
+====  =====  ======  =======  =========  ============  ====
+   0      0  id      INTEGER          0                   1
+   1      1  name    TEXT             1                   0
+   2      2  age     INTEGER          0                   0
+   3      3  email   TEXT             0                   0
+====  =====  ======  =======  =========  ============  ====</h6>
+      </li>
+      <li>
+        <h4>simple</h4>
+        <h6>      cid  name    type       notnull  dflt_value      pk
+--  -----  ------  -------  ---------  ------------  ----
+ 0      0  id      INTEGER          0                   1
+ 1      1  name    TEXT             1                   0
+ 2      2  age     INTEGER          0                   0
+ 3      3  email   TEXT             0                   0</h6>
+      </li>
+      <li>
+        <h4>simple_grid</h4>
+        <h6>┌────┬───────┬────────┬─────────┬───────────┬──────────────┬──────┐
+│    │   cid │ name   │ type    │   notnull │ dflt_value   │   pk │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  0 │     0 │ id     │ INTEGER │         0 │              │    1 │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  1 │     1 │ name   │ TEXT    │         1 │              │    0 │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  2 │     2 │ age    │ INTEGER │         0 │              │    0 │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  3 │     3 │ email  │ TEXT    │         0 │              │    0 │
+└────┴───────┴────────┴─────────┴───────────┴──────────────┴──────┘</h6>
+      </li>
+      <li>
+        <h4>simple_outline</h4>
+        <h6>┌────┬───────┬────────┬─────────┬───────────┬──────────────┬──────┐
+│    │   cid │ name   │ type    │   notnull │ dflt_value   │   pk │
+├────┼───────┼────────┼─────────┼───────────┼──────────────┼──────┤
+│  0 │     0 │ id     │ INTEGER │         0 │              │    1 │
+│  1 │     1 │ name   │ TEXT    │         1 │              │    0 │
+│  2 │     2 │ age    │ INTEGER │         0 │              │    0 │
+│  3 │     3 │ email  │ TEXT    │         0 │              │    0 │
+└────┴───────┴────────┴─────────┴───────────┴──────────────┴──────┘</h6>
+      </li>
+      <li>
+        <h4>textile</h4>
+        <h6>|_.     |_.   cid |_. name   |_. type    |_.   notnull |_. dflt_value   |_.   pk |
+|&gt;.  0  |&gt;.     0 |&lt;. id     |&lt;. INTEGER |&gt;.         0 |&lt;.              |&gt;.    1 |
+|&gt;.  1  |&gt;.     1 |&lt;. name   |&lt;. TEXT    |&gt;.         1 |&lt;.              |&gt;.    0 |
+|&gt;.  2  |&gt;.     2 |&lt;. age    |&lt;. INTEGER |&gt;.         0 |&lt;.              |&gt;.    0 |
+|&gt;.  3  |&gt;.     3 |&lt;. email  |&lt;. TEXT    |&gt;.         0 |&lt;.              |&gt;.    0 |</h6>
+      </li>
+    </ul>
+  </section> 
+  
+  <section id="commandline">
+    <h2>Command Line Options</h2>
+    <p>You can launch the SQLite App with special flags using the command line:</p>
+    <b>--portable</b>: Launches the app in portable mode, saving settings locally.
+    <p>Example usage:</p>
+    <pre><code>sqlite.exe --portable</code></pre>
+  </section>
+
+
+  <footer>
+    <p>Enjoy using the SQLite App! Feel free to experiment and explore your databases easily. 🚀</p>
+  </footer>
+
+</body>
+</html>

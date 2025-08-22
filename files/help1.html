@@ -1,0 +1,240 @@
+<!-- help1.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SQLite Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; background: #f9f9f9; line-height: 1.6; }
+    h1, h2, h3 { color: #333; }
+    code { background: #eee; padding: 2px 5px; border-radius: 4px; }
+    pre { background: #eee; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    section { margin-bottom: 40px; }
+  </style>
+</head>
+<body>
+  <h1>SQLite Tutorial</h1>
+
+  <nav>
+    <h2>Table of Contents</h2>
+    <ul>
+      <li><a href="#introduction">Introduction to SQLite</a></li>
+      <li><a href="#categories">SQL Command Categories</a></li>
+      <li><a href="#ddl">1. DDL (Data Definition Language)</a></li>
+      <li><a href="#dml">2. DML (Data Manipulation Language)</a></li>
+      <li><a href="#dql">3. DQL (Data Query Language)</a></li>
+      <li><a href="#tcl">4. TCL (Transaction Control Language)</a></li>
+      <li><a href="#other">5. Other Useful SQLite Commands</a></li>
+      <li><a href="#notes">Important Notes for SQLite</a></li>
+    </ul>
+  </nav>
+  <hr>
+  
+
+  <section id="introduction">
+    <h2>Introduction to SQLite</h2>
+    <p>SQLite is a lightweight, serverless, and self-contained SQL database engine. It stores the entire database as a single file on disk, making it highly portable and easy to use for small to medium applications.</p>
+  </section>
+
+  <section id="categories">
+    <h2>SQL Command Categories in SQLite</h2>
+    <p>SQL commands are categorized into:</p>
+    <ul>
+      <li><b>DDL</b> &mdash; Data Definition Language</li>
+      <li><b>DML</b> &mdash; Data Manipulation Language</li>
+      <li><b>DQL</b> &mdash; Data Query Language</li>
+      <li><b>TCL</b> &mdash; Transaction Control Language (limited support)</li>
+    </ul>
+  </section>
+
+  <section id="ddl">
+    <h2>1. DDL (Data Definition Language)</h2>
+
+    <h3>CREATE TABLE</h3>
+    <p>Used to create a new table in the database.</p>
+    <pre><code>CREATE TABLE students (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    age INTEGER,
+    email TEXT
+);</code></pre>
+    
+    <p>With condition to create table only if it do not exists</p>
+    <pre><code>CREATE TABLE IF NOT EXISTS customers_temp (
+    customer_id INTEGER PRIMARY KEY,
+    username TEXT
+);</code></pre>
+
+    <h3>ALTER TABLE</h3>
+    <ul>
+        <li>
+            <h4>Modify an existing table (SQLite allows only adding columns).</h4>
+            <pre><code>ALTER TABLE students ADD COLUMN phone TEXT;</code></pre>
+        </li>
+
+        <li>
+            <h4>Rename Table</h4>
+            <pre><code>ALTER TABLE old_table_name RENAME TO new_table_name;</code></pre>
+        </li>
+
+        <li>
+            <h4>Rename Column</h4>
+            <pre><code>ALTER TABLE students RENAME COLUMN id TO user_id;</code></pre>
+        </li>
+    </ul>
+
+    <h3>DROP</h3>
+    <p>Delete an existing table permanently.</p>
+    <pre><code>DROP TABLE students;</code></pre>
+
+    <p><b>Note:</b> SQLite does not support <code>TRUNCATE</code>. Use <code>DELETE FROM tablename;</code> instead to remove all rows.</p>
+
+    <p>Delete column:</p>
+    <pre><code>ALTER TABLE students DROP COLUMN phone</code></pre>
+  </section>
+
+  <section id="dml">
+    <h2>2. DML (Data Manipulation Language)</h2>
+
+    <h3>INSERT INTO</h3>
+    <p>Insert new records into a table.</p>
+    <pre><code>INSERT INTO students (name, age, email) VALUES ('John Doe', 20, 'john@example.com');</code></pre>
+
+    <h3>Copy Data From the Old Table to the New Table</h3>
+    <pre><code>INSERT INTO customers_temp(customer_id, username) SELECT id, name FROM students;</code></pre>
+
+    <h3>UPDATE</h3>
+    <p>Modify existing records.</p>
+    <pre><code>UPDATE students SET age = 21 WHERE id = 1;</code></pre>
+
+    <h3>DELETE</h3>
+    <ul>
+        <li>
+            <p><b>Remove specific records.</b></p>
+            <pre><code>DELETE FROM students WHERE id = 1;</code></pre>
+        </li>
+        <li>
+            <p><b> All Data from a Table</b></p>
+            <p>To remove all rows without dropping the table:</p>
+            <pre><code>DELETE FROM table_name;</code></pre>
+        </li>
+    </ul>
+  </section>
+
+  <section id="dql">
+    <h2>3. DQL (Data Query Language)</h2>
+
+    <h3>SELECT</h3>
+    <p>Retrieve data from the database.</p>
+
+    <h4>Basic SELECT</h4>
+    <pre><code>SELECT * FROM students;</code></pre>
+
+    <h4>SELECT Specific Columns</h4>
+    <pre><code>SELECT name, email FROM students;</code></pre>
+
+    <h4>Using WHERE Clause</h4>
+    <pre><code>SELECT * FROM students WHERE age &gt; 18;</code></pre>
+
+    <h4>ORDER BY Clause</h4>
+    <pre><code>SELECT * FROM students ORDER BY age DESC;</code></pre>
+
+    <h4>GROUP BY Clause</h4>
+    <pre><code>SELECT age, COUNT(*) FROM students GROUP BY age;</code></pre>
+
+    <h4>LIMIT Clause</h4>
+    <pre><code>SELECT * FROM students LIMIT 5;</code></pre>
+
+    <h4>JOINs in SQLite</h4>
+    <p>Combine rows from two or more tables.</p>
+    <pre><code>SELECT students.name, courses.course_name
+FROM students
+INNER JOIN enrollments ON students.id = enrollments.student_id
+INNER JOIN courses ON enrollments.course_id = courses.id;</code></pre>
+  </section>
+
+  <section id="tcl">
+    <h2>4. TCL (Transaction Control Language)</h2>
+    <p>SQLite supports basic transaction control to ensure data integrity.</p>
+
+    <h3>BEGIN TRANSACTION</h3>
+    <pre><code>BEGIN TRANSACTION;</code></pre>
+
+    <h3>COMMIT</h3>
+    <p>Save all changes made during the transaction.</p>
+    <pre><code>COMMIT;</code></pre>
+
+    <h3>ROLLBACK</h3>
+    <p>Undo changes made during the transaction.</p>
+    <pre><code>ROLLBACK;</code></pre>
+  </section>
+
+  <section id="other">
+    <h2>5. Other Useful SQLite Commands</h2>
+
+      <h4>Show All Tables in Database</h4>
+      <p>Use the SQLite Master Table to list all tables.</p>
+      <pre><code>SELECT name FROM sqlite_master WHERE type='table';</code></pre>
+    
+      <h4>Get Table Structure</h4>
+      <p>Use the <code>PRAGMA table_info</code> command to see column names, types, and constraints of a table.</p>
+      <pre><code>PRAGMA table_info('students');</code></pre>
+
+      <h4>Create an Index</h4>
+      <p>Indexes help in faster searching and ordering of data.</p>
+      <pre><code>CREATE INDEX idx_name ON students(name);</code></pre>
+
+      <h4>List All Indexes of a Table</h4>
+      <p>Use PRAGMA to list all indexes created on a table.</p>
+      <pre><code>PRAGMA index_list('students');</code></pre>
+
+      <h4>Get Detailed Info About an Index</h4>
+      <p>See which columns are covered by an index.</p>
+      <pre><code>PRAGMA index_info('idx_name');</code></pre>
+
+      <h4>Drop an Index</h4>
+      <p>Delete an existing index.</p>
+      <pre><code>DROP INDEX idx_name;</code></pre>
+
+      <h4>Check Foreign Key Support</h4>
+      <p>
+        SQLite supports foreign keys but they must be enabled manually.
+        1 = enabled, 0 = disabled.
+      </p>
+      <pre><code>PRAGMA foreign_keys;</code></pre>
+
+      <h4>Disable Foreign Key Constraints</h4>
+      <p>We have to turn off the foreign key constraints temporarily because it gives us more flexibility in making changes.</p>
+      <pre><code>PRAGMA  foreign_keys = OFF;</code></pre>
+
+      <h4>Enable Foreign Key Constraints</h4>
+      <p>We can now turn foreign key constraints back on for ensuring data integrity.</p>
+      <pre><code>PRAGMA foreign_keys = ON;</code></pre>
+
+      <h4>View All Constraints of a Table</h4>
+      <p>There is no direct command, but you can get some information using:</p>
+      <pre><code>SELECT sql FROM sqlite_master WHERE type='table' AND name='students';</code></pre>
+
+      <h4>VACUUM Database</h4>
+      <p>Rebuild the database to reduce file size and defragment.</p>
+      <pre><code>VACUUM;</code></pre>
+  </section>
+  
+
+  <section id="notes">
+    <h2>Important Notes for SQLite</h2>
+    <ul>
+      <li>SQLite databases are stored in a single file with extensions like .db, .sqlite, .sqlite3, .db3.</li>
+      <li>Data types are dynamic; columns accept multiple types if not restricted.</li>
+      <li>There are no user access controls (no GRANT/REVOKE).</li>
+      <li>All commands can be separated by semicolons (<code>;</code>) when running multiple queries.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Happy Learning! 🚀 Practice using simple queries and slowly move to more advanced features.</p>
+    <p>For complete documentation visit <a href="https://www.sqlite.org/docs.html">https://www.sqlite.org/docs.html</a></p>
+  </footer>
+
+</body>
+</html>
