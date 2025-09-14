@@ -1,4 +1,4 @@
-__version__ = "2.0.0"
+__version__ = "2.1.0"
 
 """
 SQLite GUI App
@@ -9,9 +9,10 @@ You may use, modify, and share this app, but not for commercial purposes.
 More info: https://creativecommons.org/licenses/by-nc/4.0/
 """
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QMenu, QMenuBar, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFileDialog, QMessageBox, QPlainTextEdit
+from PySide6.QtWidgets import QApplication, QMainWindow, QMenu, QMenuBar, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFileDialog, QMessageBox, QPlainTextEdit, QSplitter
 from PySide6.QtGui import QIcon, QFont, QAction, QTextCursor, QActionGroup
 from PySide6.QtCore import Qt
+from theme import LIGHT_PALETTE, DARK_PALETTE, MENU_QSS_DARK, MENU_QSS_LIGHT
 import sys
 import json
 from webbrowser import open_new_tab
@@ -50,8 +51,8 @@ def run_sql_query(query: str, database: str, fmt: str):
         
     return return_string
 
-def save_settings(db_path, table_format, clear_input_checked):
-    data = {"last_db": db_path, "table_format": table_format, "clear_input": clear_input_checked}
+def save_settings(db_path, table_format, clear_input_checked, theme):
+    data = {"last_db": db_path, "table_format": table_format, "clear_input": clear_input_checked, "theme": theme}
     with open(r"files\settings.json", "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
@@ -61,8 +62,8 @@ def load_settings():
             data = json.load(f)
         return data
     except Exception:
-        save_settings("database.db", "simple_outline", False)
-        return {"last_db": "database.db", "table_format": "simple_outline", "clear_input": False}
+        save_settings("database.db", "simple_outline", False, "sys")
+        return {"last_db": "database.db", "table_format": "simple_outline", "clear_input": False, "theme": "sys"}
 
 class HScrollTextEdit(QPlainTextEdit):
     def wheelEvent(self, event):
@@ -83,6 +84,7 @@ class NotepadWindow(QMainWindow):
         super().__init__()
         self.file_path = file_path
         self.parent_window = parent
+        self.setPalette(parent.palette())
         self.setWindowTitle("Untitled - Notepad" if not file_path else f"{file_path} - Notepad")
         self.setWindowIcon(QIcon(r"files\icon1.ico"))
         if parent:
@@ -130,6 +132,7 @@ class NotepadWindow(QMainWindow):
         edit_menu.addAction(QAction(text="Reset Zoom", parent=self, shortcut="Ctrl+=", triggered=lambda: self.editor.setFont(QFont("Consolas", 13))))
 
         menu_bar.addAction(QAction(text="Run", parent=self, shortcut="F5", triggered=self.run))
+        menu_bar.setStyleSheet(parent.styleSheet())
 
     def _mark_modified(self):
         self.is_modified = True
@@ -248,7 +251,7 @@ class NotepadWindow(QMainWindow):
             QPlainTextEdit.wheelEvent(self.editor, event)
 
 class Mainwindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, appo: QApplication):
         super().__init__()
         self.open_notepads = []
         self.setWindowTitle("SQLite")
@@ -256,6 +259,7 @@ class Mainwindow(QMainWindow):
         #self.resize(950, 600)
         self.setContentsMargins(10,0,10,10)
         self.data = load_settings()
+        self.appo = appo
 
         #menu bar setup
         menu_bar = QMenuBar(self)
@@ -288,7 +292,7 @@ class Mainwindow(QMainWindow):
         edit_menu.addAction(QAction(text="  Dec Size", parent=self, triggered=lambda: self.output_box.zoomOut(1)))
         edit_menu.addAction(QAction("  Reset Zoom", self, triggered=lambda: self.output_box.setFont(QFont("Consolas", 13))))
 
-        style_menu = QMenu("&Style", self)
+        style_menu = QMenu("Table", self)
         tabulate_formats = ['double_grid', 'double_outline', 'fancy_grid', 'fancy_outline', 'github', 'html', 'latex', 'mediawiki', 'moinmoin', 'orgtbl', 'grid', 'outline', 'pipe', 'plain', 'presto', 'pretty', 'psql', 'rst', 'simple', 'simple_grid', 'simple_outline', 'textile']
         style_group = QActionGroup(self)
         style_group.setExclusive(True)
@@ -303,7 +307,34 @@ class Mainwindow(QMainWindow):
             action.triggered.connect(lambda checked, f=fmt: self.set_table_format(f))
             
             style_group.addAction(action)
-            style_menu.addAction(action) 
+            style_menu.addAction(action)
+
+        theme_menu = QMenu("Theme", self)
+        theme_group = QActionGroup(self)
+        theme_group.setExclusive(True)
+        action1 = QAction("Light", self, checkable=True)
+        action2 = QAction("Dark", self, checkable=True)
+        action3 = QAction("System Default", self, checkable=True)
+        if self.data.get("theme", "sys") == "dark":
+            action2.setChecked(True)
+            self.theme_dark()
+        elif self.data.get("theme", "sys") == "light":
+            action1.setChecked(True)
+            self.theme_light()
+        else:
+            action3.setChecked(True)
+            self.theme_sys()
+        theme_group.addAction(action3)
+        theme_group.addAction(action1)
+        theme_group.addAction(action2)
+        action1.triggered.connect(lambda checked: self.theme_light())
+        action2.triggered.connect(lambda checked: self.theme_dark())
+        action3.triggered.connect(lambda checked: self.theme_sys())
+        theme_menu.addActions([action3, action1, action2])
+
+        style = QMenu("&Style", self)
+        style.addMenu(style_menu)
+        style.addMenu(theme_menu)
 
         help_menu = QMenu("&Help", self)
         help_menu.addAction(QAction(text="Help", parent=self, shortcut="Ctrl+H", triggered=lambda: open_new_tab(r"files\help2.html")))
@@ -313,9 +344,9 @@ class Mainwindow(QMainWindow):
 
         menu_bar.addMenu(file_menu)
         menu_bar.addMenu(edit_menu)
-        menu_bar.addMenu(style_menu)
+        menu_bar.addMenu(style)
         menu_bar.addMenu(help_menu)
-        menu_bar.addAction(QAction(text="Run", parent=self, shortcut="F5", triggered=self.run_queries))
+        menu_bar.addAction(QAction(text="Run", parent=self, shortcut="F5", triggered=self.run_queries, toolTip="F5"))
         self.setMenuBar(menu_bar)
 
         top_bar = QHBoxLayout()
@@ -338,7 +369,6 @@ class Mainwindow(QMainWindow):
         self.text_input = QPlainTextEdit()
         self.text_input.setPlaceholderText("Write your SQL commands here...")
         self.text_input.setFont(QFont("Consolas", 13))
-        self.text_input.setFixedHeight(110)
         self.text_input.wheelEvent = self.wheelEvent_textinput.__get__(self)
 
         self.output_box = HScrollTextEdit()
@@ -347,11 +377,15 @@ class Mainwindow(QMainWindow):
         self.output_box.setLineWrapMode(QPlainTextEdit.LineWrapMode.NoWrap)
         
         self.output_box.setMinimumHeight(200)
+
+        splitter = QSplitter(Qt.Vertical)
+        splitter.addWidget(self.text_input)
+        splitter.addWidget(self.output_box)
+        splitter.setSizes([120, 400])
         
         layout = QVBoxLayout()
         layout.addLayout(top_bar)
-        layout.addWidget(self.text_input)
-        layout.addWidget(self.output_box)
+        layout.addWidget(splitter)
 
         container = QWidget()
         container.setLayout(layout)
@@ -378,13 +412,28 @@ class Mainwindow(QMainWindow):
             QMessageBox.critical(self, "Error", str(e))
 
     def closeEvent(self, event):
-        save_settings(db_path=self.db_entry.text().strip(), table_format=self.current_table_format, clear_input_checked=self.clear_input.isChecked())
+        save_settings(db_path=self.db_entry.text().strip(), table_format=self.current_table_format, clear_input_checked=self.clear_input.isChecked(), theme=self.current_theme)
         for window in self.open_notepads[:]:
             window.close()
         super().closeEvent(event)
 
     def set_table_format(self, fmt):
         self.current_table_format = fmt
+
+    def theme_sys(self):
+        self.current_theme = "sys"
+        self.setPalette(self.appo.palette())
+        self.menuBar().setStyleSheet(self.appo.styleSheet())
+
+    def theme_light(self):
+        self.current_theme = "light"
+        self.setPalette(LIGHT_PALETTE)
+        self.menuBar().setStyleSheet(MENU_QSS_LIGHT)
+
+    def theme_dark(self):
+        self.current_theme = "dark"
+        self.setPalette(DARK_PALETTE)
+        self.menuBar().setStyleSheet(MENU_QSS_DARK)
     
     def handle_check(self, checked):
         if checked:
@@ -448,10 +497,10 @@ License Link: https://creativecommons.org/licenses/by-nc/4.0/""")
                 self.text_input.zoomOut(1)
         else:
             QPlainTextEdit.wheelEvent(self.text_input, event)
-
+        
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = Mainwindow()
+    window = Mainwindow(app)
     window.show()
     sys.exit(app.exec())
